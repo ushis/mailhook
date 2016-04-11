@@ -55,8 +55,8 @@ The following payload is posted to the web hook:
       "<6b67a383-8c72-400b-827b-b42497437f83@example.io>",
       "<39895116-02af-47a1-b7fd-e13bf343f798@example.net>"
     ],
-    text: "Hey Everybody,\n\nThis is just a test...\n\n",
-    html: "<html><body><p>Hey Everybody,</p><p>This is just a test...</p></body></html>"
+    "text": "Hey Everybody,\n\nThis is just a test...\n\n",
+    "html": "<html><body><p>Hey Everybody,</p><p>This is just a test...</p></body></html>"
   }
 }
 ```
