@@ -1,5 +1,7 @@
 # mailhook
 
+Micro service receiving emails and posting them to web hooks.
+
 ## Usage
 
 ```
@@ -8,22 +10,21 @@ mailhook -hook-file hooks.yml -listen :25
 
 ### Hook File
 
+A hook file includes a YAML encoded set of web hooks and email address
+patterns.
+
 ```yaml
 ---
+# catch mails to tom@example.com and tom+arbitrary-tag@example.com
 - hook: 'https://api.example.com/v1/mails'
   emails:
-    # Catches:
-    #   - tom@example.com
-    #   - tom+arbitrary-tag@example.com
     - 'tom@example.com'
 
+# catch mails to *@example.net and *@example.org
 - hook: 'http://example.net/messages'
   emails:
-    # Catches:
-    #   - *@example.net
-    #   - *@example.org
-    - @example.net
-    - @example.org
+    - '@example.net'
+    - '@example.org'
 ```
 
 ### Payload
