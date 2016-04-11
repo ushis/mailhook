@@ -37,20 +37,26 @@ The following payload is posted to the web hook:
     "sender": "tina@example.io",
     "recipient": "tom+0123456789abcdef@example.com",
     "message": {
-      "from": [
-        "<tina@example.io>"
-      ],
-      "to": [
-        "<tom+0123456789abcdef@example.com>",
-        "<bill@example.net>"
-      ],
-      "cc": [
-        "<heather@example.io"
-      ],
+      "from": [{
+        "name": "Tina",
+        "email": "tina@example.io"
+      }],
+      "to": [{
+        "name": "Tom",
+        "email": "tom+0123456789abcdef@example.com"
+      }, {
+        "name": "Bill",
+        "email": "bill@example.net"
+      }],
+      "cc": [{
+        "name": "",
+        "email": "heather@example.io"
+      }],
       "bcc": [],
-      "reply_to": [
-        "<tina+tag@example.net>"
-      ],
+      "reply_to": [{
+        "name": "Tina",
+        "email": "tina+tag@example.net"
+      }],
       "subject": "Re: This is a test message :)",
       "date": "2016-03-14T18:19:42+01:00",
       "message_id": "<1dfe5dbc-3862-4872-bb7b-470a27381d1f@example.io>",

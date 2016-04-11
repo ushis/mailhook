@@ -9,18 +9,23 @@ import (
 )
 
 type Message struct {
-	From       []string  `json:"from"`
-	To         []string  `json:"to"`
-	Cc         []string  `json:"cc"`
-	Bcc        []string  `json:"bcc"`
-	ReplyTo    []string  `json:"reply_to"`
-	Subject    string    `json:"subject"`
-	Date       time.Time `json:"date"`
-	MessageID  string    `json:"message_id"`
-	InReplyTo  string    `json:"in_reply_to"`
-	References []string  `json:"references"`
-	Text       string    `json:"text"`
-	HTML       string    `json:"html"`
+	From       []*Address `json:"from"`
+	To         []*Address `json:"to"`
+	Cc         []*Address `json:"cc"`
+	Bcc        []*Address `json:"bcc"`
+	ReplyTo    []*Address `json:"reply_to"`
+	Subject    string     `json:"subject"`
+	Date       time.Time  `json:"date"`
+	MessageID  string     `json:"message_id"`
+	InReplyTo  string     `json:"in_reply_to"`
+	References []string   `json:"references"`
+	Text       string     `json:"text"`
+	HTML       string     `json:"html"`
+}
+
+type Address struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func NewMessage(r io.Reader) (*Message, error) {
@@ -70,20 +75,20 @@ func NewMessage(r io.Reader) (*Message, error) {
 	return m, nil
 }
 
-func readAddressListHeader(m *enmime.MIMEBody, key string) ([]string, error) {
+func readAddressListHeader(m *enmime.MIMEBody, key string) ([]*Address, error) {
 	list, err := m.AddressList(key)
 
 	if err == mail.ErrHeaderNotPresent {
-		return []string{}, nil
+		return []*Address{}, nil
 	}
 
 	if err != nil {
 		return nil, err
 	}
-	addrs := make([]string, len(list))
+	addrs := make([]*Address, len(list))
 
 	for i, addr := range list {
-		addrs[i] = addr.String()
+		addrs[i] = &Address{Name: addr.Name, Email: addr.Address}
 	}
 	return addrs, nil
 }
