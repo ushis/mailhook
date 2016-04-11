@@ -35,18 +35,18 @@ func (s *Server) ServeSMTP(_ smtpd.Peer, env smtpd.Envelope) error {
 		fmt.Println("could not parse mail:", err)
 		return smtpd.Error{565, "mail rejected: invalid format"}
 	}
-	buf := bytes.NewBuffer(nil)
-
-	if err := json.NewEncoder(buf).Encode(&Payload{Mail: msg}); err != nil {
-		fmt.Println("could not json encode message:", err)
-		return smtpd.Error{430, "internal server error"}
-	}
 
 	for _, addr := range env.Recipients {
 		hook, ok := s.hooks.Find(addr)
 
 		if !ok {
 			fmt.Println("could not find hook for address:", addr)
+			return smtpd.Error{430, "internal server error"}
+		}
+		buf := bytes.NewBuffer(nil)
+
+		if err := json.NewEncoder(buf).Encode(NewPayload(env.Sender, addr, msg)); err != nil {
+			fmt.Println("could not json encode message:", err)
 			return smtpd.Error{430, "internal server error"}
 		}
 		resp, err := http.Post(hook.Hook, "application/json", buf)
@@ -60,6 +60,7 @@ func (s *Server) ServeSMTP(_ smtpd.Peer, env smtpd.Envelope) error {
 			fmt.Println("could not dispatch message: server responded with:", resp.Status)
 			return smtpd.Error{420, "internal server error"}
 		}
+		fmt.Println("relayed mail for", addr, "to", hook.Hook)
 	}
 	return nil
 }
