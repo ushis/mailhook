@@ -1,0 +1,6 @@
+# Editor
+*.swo
+*.swp
+
+# Binary
+/mailhook
