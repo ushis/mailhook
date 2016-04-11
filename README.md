@@ -68,5 +68,6 @@ The following payload is posted to the web hook:
       "text": "Hey Everybody,\n\nThis is just a test...\n\n",
       "html": "<html><body><p>Hey Everybody,</p><p>This is just a test...</p></body></html>"
     }
+  }
 }
 ```
