@@ -53,12 +53,17 @@ func (s *Server) ServeSMTP(_ smtpd.Peer, env smtpd.Envelope) error {
 
 		if err != nil {
 			fmt.Println("could not dispatch message:", err)
-			return smtpd.Error{420, "internal server error"}
+			return smtpd.Error{440, "unable to reach destination system"}
+		}
+
+		if 400 <= resp.StatusCode && resp.StatusCode <= 499 {
+			fmt.Println("could not dispatch message: server responded with:", resp.Status)
+			return smtpd.Error{500, "destination system does not accept message"}
 		}
 
 		if resp.StatusCode < 200 || 299 < resp.StatusCode {
 			fmt.Println("could not dispatch message: server responded with:", resp.Status)
-			return smtpd.Error{420, "internal server error"}
+			return smtpd.Error{430, "internal server error"}
 		}
 		fmt.Println("relayed mail for", addr, "to", hook.Hook)
 	}
