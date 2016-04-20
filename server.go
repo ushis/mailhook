@@ -33,7 +33,7 @@ func (s *Server) ServeSMTP(_ smtpd.Peer, env smtpd.Envelope) error {
 
 	if err != nil {
 		fmt.Println("could not parse mail:", err)
-		return smtpd.Error{565, "mail rejected: invalid format"}
+		return smtpd.Error{554, "mail rejected: invalid format"}
 	}
 
 	for _, addr := range env.Recipients {
@@ -41,29 +41,29 @@ func (s *Server) ServeSMTP(_ smtpd.Peer, env smtpd.Envelope) error {
 
 		if !ok {
 			fmt.Println("could not find hook for address:", addr)
-			return smtpd.Error{430, "internal server error"}
+			return smtpd.Error{451, "internal server error"}
 		}
 		buf := bytes.NewBuffer(nil)
 
 		if err := json.NewEncoder(buf).Encode(NewPayload(env.Sender, addr, msg)); err != nil {
 			fmt.Println("could not json encode message:", err)
-			return smtpd.Error{430, "internal server error"}
+			return smtpd.Error{451, "internal server error"}
 		}
 		resp, err := http.Post(hook.Hook, "application/json", buf)
 
 		if err != nil {
 			fmt.Println("could not dispatch message:", err)
-			return smtpd.Error{440, "unable to reach destination system"}
+			return smtpd.Error{451, "unable to reach destination system"}
 		}
 
 		if 400 <= resp.StatusCode && resp.StatusCode <= 499 {
 			fmt.Println("could not dispatch message: server responded with:", resp.Status)
-			return smtpd.Error{500, "destination system does not accept message"}
+			return smtpd.Error{554, "destination system does not accept message"}
 		}
 
 		if resp.StatusCode < 200 || 299 < resp.StatusCode {
 			fmt.Println("could not dispatch message: server responded with:", resp.Status)
-			return smtpd.Error{430, "internal server error"}
+			return smtpd.Error{451, "internal server error"}
 		}
 		fmt.Println("relayed mail for", addr, "to", hook.Hook)
 	}
