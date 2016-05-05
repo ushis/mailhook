@@ -1,0 +1,20 @@
+To: Alice <alice@example.com>
+From: Bob <bob@example.org>
+Subject: Re: This is just a test
+Message-ID: <5727b6c4@example.org>
+References: <8ca8a3e3@example.com>
+ <c8fecb75@example.org>
+ <8b6ea071@example.com>
+In-Reply-To: <8b6ea071@example.com>
+Date: Mon, 11 Apr 2016 17:44:09 +0200
+User-Agent: Test-Agent
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Hey Alice, thanks for your test mail!
+
+> Hey Bob,
+>
+> this is just a test...
+>
+> Cheers, Alice

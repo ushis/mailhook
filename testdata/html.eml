@@ -1,0 +1,21 @@
+To: Alice <alice@example.com>
+From: Bob <bob@example.org>
+Subject: Re: This is just a test
+Message-ID: <5727b6c4@example.org>
+Date: Mon, 11 Apr 2016 17:44:09 +0200
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <body>
+    <p>Hey Alice, thanks for your test mail!</p>
+
+    <blockquote>
+      <p>Hey Bob,</p>
+
+      <p>this is just a test...</p>
+
+      <p>Cheers, Alice</p>
+    </blockquote>
+  </body>
+</html>
