@@ -8,14 +8,14 @@ import (
 
 type Hooks []*Hook
 
-func (hs *Hooks) Find(addr string) (*Hook, bool) {
+func (hs Hooks) Find(addr string) (*Hook, bool) {
 	addr, err := normalizeAddress(addr)
 
 	if err != nil {
 		return nil, false
 	}
 
-	for _, hook := range *hs {
+	for _, hook := range hs {
 		if hook.includesAddr(addr) {
 			return hook, true
 		}
@@ -34,7 +34,11 @@ func (h *Hook) includesAddr(addr string) bool {
 			return true
 		}
 
-		if len(email) > 0 && email[0] == '@' && strings.HasSuffix(addr, email) {
+		if strings.HasPrefix(email, "@") && strings.HasSuffix(addr, email) {
+			return true
+		}
+
+		if email == "@" {
 			return true
 		}
 	}
