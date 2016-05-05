@@ -10,10 +10,10 @@ import (
 
 type Server struct {
 	*smtpd.Server
-	hooks *Hooks
+	hooks Hooks
 }
 
-func NewServer(srv *smtpd.Server, hooks *Hooks) *Server {
+func NewServer(srv *smtpd.Server, hooks Hooks) *Server {
 	s := &Server{srv, hooks}
 	s.Server.Handler = s.ServeSMTP
 	s.Server.RecipientChecker = s.CheckRecipient

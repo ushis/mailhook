@@ -41,17 +41,10 @@ func main() {
 	}
 	defer l.Close()
 
-	s := NewServer(&smtpd.Server{}, hooks)
-
-	s.Serve(l)
-
-	for _, h := range *hooks {
-		fmt.Println(h.Hook)
-		fmt.Println(h.Emails)
-	}
+	NewServer(&smtpd.Server{}, hooks).Serve(l)
 }
 
-func readHookFile(path string) (*Hooks, error) {
+func readHookFile(path string) (Hooks, error) {
 	f, err := os.Open(path)
 
 	if err != nil {
@@ -64,9 +57,9 @@ func readHookFile(path string) (*Hooks, error) {
 	if err != nil {
 		return nil, err
 	}
-	hooks := new(Hooks)
+	hooks := Hooks{}
 
-	if err := yaml.Unmarshal(buf, hooks); err != nil {
+	if err := yaml.Unmarshal(buf, &hooks); err != nil {
 		return nil, err
 	}
 	return hooks, nil

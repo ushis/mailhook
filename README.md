@@ -25,6 +25,11 @@ patterns.
   emails:
     - '@example.net'
     - '@example.org'
+
+# catch all mails
+- hook: 'http://example.net/fallback'
+  emails:
+    - '@'
 ```
 
 ### Payload
