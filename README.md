@@ -1,6 +1,7 @@
 # mailhook
 
 [![Circle CI](https://circleci.com/gh/ushis/mailhook.svg?style=svg)](https://circleci.com/gh/ushis/mailhook)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ushis/mailhook)](https://goreportcard.com/report/github.com/ushis/mailhook)
 
 Micro service receiving emails and posting them to web hooks.
 
