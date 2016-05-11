@@ -1,0 +1,83 @@
+To: Alice <alice@example.com>,
+  Tina <tina@example.com>
+From: Bob <bob@example.org>
+Subject: Re: This is just a test
+Message-ID: <5727b6c4@example.org>
+References: <8ca8a3e3@example.com>
+ <c8fecb75@example.org>
+ <8b6ea071@example.com>
+In-Reply-To: <8b6ea071@example.com>
+Date: Mon, 11 Apr 2016 17:44:09 +0200
+User-Agent: Test-Agent
+Content-Type: multipart/mixed;
+ boundary="d9f46ad8b5e2"
+
+--d9f46ad8b5e2
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Hey Alice, thanks for your test mail!
+
+> Hey Bob,
+>
+> this is just a test...
+>
+> Cheers, Alice
+
+--d9f46ad8b5e2
+Content-Type: application/octet-stream;
+ name="attachment1"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="attachment1"
+
+lU0OyGWxoqB7M3jy/NNOwavcOTlrhYJAddX4VShrIwLrtt5J2Nt53CCrJEVWJN4DTrTo5shg
+8zz65ooD0pVhbFN00yl7FNVD43uok0ntWUqvj1eTP9YLHjiKZLGYCmspvAo=
+
+--d9f46ad8b5e2
+Content-Type: application/octet-stream;
+ name="attachment2"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+
+GtlW0esRaMjrHao5nAL4vZheA8C4Zwal2jWxQ72BUpeUqe9sdKp2vAtig2NXEJs3y0/Qv+Dd
+vZ7CZqe0DfuxCHXS2LO9jJzY1H66hHAgMMK6z59mpxjvnfdahea0IDH8CdzOwDKwstB58Z3d
+tK+C1eQqHhHrqD2d9nZIkr+e9+5rdIRb2cmNGBcGlJ/34qXWp03ZlVITwaXCYu8roRjcgW59
+mwJOwYDvY57gZqlONgyCuoGOmcdiBglKFu805OBsGRgIn8jwuVH/OtBDTk+GhVP/ytCNbI5K
+k5t/BTWbmAgtIPfhfvs+ujFIpbqLwHiRVr7hPIZ4TEYGp+vZNWhVRw5iS9hLL72Qc6WefQPE
+u/6dvRki6T+jA8jRuxR9GVNZ3hYepKx8NVjv5uBUPLLIviE1c/FVTGk3r+NFT0b5TbpO2NVm
+ydgbCHoBvte6wwAOM+xgUb4xq6S59GMIbbxxJq/q6sq8cSkHpsAzLYrOLke4W7rf+ZsA5N8L
+O4HD6PXpKBgnmsa1kGqyU3eKGXseICGSPHgm60ZglLtKvLVAOLH49+q498u28a5h3sI9EGD0
+WHapeeGwh8Bntxp0jU4Hy1JY9ZtUsVmtwFrXm3AKHWhglfM0Zxtt2yUWg8PVbGLuAh3o+0g2
+eRrrHXk6q/FUQzU69SEoZH8Ub2Q8QwzoZbDrVDpxA+KtCCnCOWfkXtR5Lcrbb4qVoJWSeo82
+S0xsIqUX2bJNwOUlNQo=
+
+--d9f46ad8b5e2
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Disposition: inline;
+ filename="attachment3"
+
+lhVWSJZRDX3tkfrmxk6K33qz+uYtUtEgiHTwo0YUbI6ffFTq7GZaTKfTzJ6/ikMQrOjXX35Z
+R838h7mMzC0nkxWIRwYFgA0o+aH/FvRNgNg43nK9ClsFWVe3MpTp4E1LSysEBvGBfIFb5els
+8HW6Ezq42SKFrzYG7klDZZTRXRVbg6ttlXhyHxbG4a/KI7sZKcrWrC5mFCStE3/ocD1G6y6h
+S4rYf5X0A/xqWJIPEsU92DGR97IULsIr9u/MdO0pAzB/1JByI3zP9IchqsRVhKGUMfuwpCBE
+OVKuVur3ZAZpvmdHI5T2RNjbE8EUTQo=
+
+--d9f46ad8b5e2
+Content-Type: application/octet-stream;
+ name="attachment4"
+Content-Transfer-Encoding: base64
+Content-Disposition: something;
+ filename="attachment4"
+
+3J9jVMc364QRgEiNLAlyOuCRwbO4wuPOUHTeHfWvMg1VdB4OHP5QdQ4OLapbsky3P0vmBcn7
+2UhFG1NXnMUtfM23KjZ3krq0q4xCNpzd9nZWi9iAY4OHIUW5Tpqo19DOmqtJN7WOWWhO9S3g
+8lHJm3YhEhba1fkIyDJc2IvCuSadUlHUaVuNr1EME0S8+kxah+3C9jMLJw6bqdREUITP6j9w
+YRYKZxh4So5gdkIz/ZBgHNwlBnLSOz1v1sN5FWPt6bv5HQ4LY6LVkfYdCK7JsKHbwNcl/6Va
+40/b5NGctEOR5w29lagyb/q6G3EeJLCjAvDWoYxKYUbtxdVVA1Rl22ruk1RrLVUvj1N4mf0z
+PxQXRtXbbCIdMMNGP+KGV+tGMHZfjqOCZZSjBNBOWoV1NijB+YdQuUT38mt/s4P20VVyVwl6
+o5PdROt2loSHY+T75s8jNL/wa4ssA/9cFFgzMeUEtqvhi5EMlimQmeYMu3/h51IhfF1QlQYQ
+gIbXITGujBhpjlNWUSmf9TpNDhFKF53Gl/hdcGgpejOfNrqHxBhb/u62Defjcfk4TW+iR1yE
+iPwNDc1skuUK
+--d9f46ad8b5e2--
