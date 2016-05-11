@@ -1,5 +1,7 @@
 # mailhook
 
+[![Circle CI](https://circleci.com/gh/ushis/mailhook.svg?style=svg)](https://circleci.com/gh/ushis/mailhook)
+
 Micro service receiving emails and posting them to web hooks.
 
 ## Usage
