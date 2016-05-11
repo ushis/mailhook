@@ -181,7 +181,7 @@ func TestEncode(t *testing.T) {
 		}
 
 		if !bytes.Equal(orig, body) {
-			t.Fatal("unexpected body for: %s", a.Filename)
+			t.Fatalf("unexpected body for: %s", a.Filename)
 		}
 	}
 }
