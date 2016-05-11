@@ -10,7 +10,7 @@ dependencies:
 
 test:
   override:
-    - docker run ushi/mailhook go test -v -race ./...
+    - docker run ushi/mailhook go test -v -race -cover ./...
 
 deployment:
   hub:

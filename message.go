@@ -9,23 +9,24 @@ import (
 )
 
 type Message struct {
-	From       []*Address `json:"from"`
-	To         []*Address `json:"to"`
-	Cc         []*Address `json:"cc"`
-	Bcc        []*Address `json:"bcc"`
-	ReplyTo    []*Address `json:"reply_to"`
-	Subject    string     `json:"subject"`
-	Date       time.Time  `json:"date"`
-	MessageID  string     `json:"message_id"`
-	InReplyTo  string     `json:"in_reply_to"`
-	References []string   `json:"references"`
-	Text       string     `json:"text"`
-	HTML       string     `json:"html"`
+	From        []*Address    `multipart:"from"`
+	To          []*Address    `multipart:"to"`
+	Cc          []*Address    `multipart:"cc"`
+	Bcc         []*Address    `multipart:"bcc"`
+	ReplyTo     []*Address    `multipart:"reply_to"`
+	Subject     string        `multipart:"subject"`
+	Date        *Time         `multipart:"date"`
+	MessageID   string        `multipart:"message_id"`
+	InReplyTo   string        `multipart:"in_reply_to"`
+	References  []string      `multipart:"references"`
+	Text        string        `multipart:"text"`
+	HTML        string        `multipart:"html"`
+	Attachments []*Attachment `multipart:"attachments"`
 }
 
 type Address struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name  string `multipart:"name"`
+	Email string `multipart:"email"`
 }
 
 func NewMessage(r io.Reader) (*Message, error) {
@@ -34,38 +35,43 @@ func NewMessage(r io.Reader) (*Message, error) {
 	if err != nil {
 		return nil, err
 	}
-	body, err := enmime.ParseMIMEBody(msg)
+	b, err := enmime.ParseMIMEBody(msg)
 
 	if err != nil {
 		return nil, err
 	}
 
 	m := &Message{
-		Subject:    body.GetHeader("Subject"),
-		MessageID:  body.GetHeader("Message-ID"),
-		InReplyTo:  body.GetHeader("In-Reply-To"),
-		References: strings.Fields(body.GetHeader("References")),
-		Text:       body.Text,
-		HTML:       body.HTML,
+		Subject:     b.GetHeader("Subject"),
+		MessageID:   b.GetHeader("Message-ID"),
+		InReplyTo:   b.GetHeader("In-Reply-To"),
+		References:  strings.Fields(b.GetHeader("References")),
+		Text:        b.Text,
+		HTML:        b.HTML,
+		Attachments: make([]*Attachment, len(b.Attachments)),
 	}
 
-	if m.From, err = readAddressListHeader(body, "From"); err != nil {
+	for i, attachment := range b.Attachments {
+		m.Attachments[i] = &Attachment{attachment}
+	}
+
+	if m.From, err = readAddressListHeader(b, "From"); err != nil {
 		return nil, err
 	}
 
-	if m.To, err = readAddressListHeader(body, "To"); err != nil {
+	if m.To, err = readAddressListHeader(b, "To"); err != nil {
 		return nil, err
 	}
 
-	if m.Cc, err = readAddressListHeader(body, "Cc"); err != nil {
+	if m.Cc, err = readAddressListHeader(b, "Cc"); err != nil {
 		return nil, err
 	}
 
-	if m.Bcc, err = readAddressListHeader(body, "Bcc"); err != nil {
+	if m.Bcc, err = readAddressListHeader(b, "Bcc"); err != nil {
 		return nil, err
 	}
 
-	if m.ReplyTo, err = readAddressListHeader(body, "Reply-To"); err != nil {
+	if m.ReplyTo, err = readAddressListHeader(b, "Reply-To"); err != nil {
 		return nil, err
 	}
 
@@ -78,26 +84,22 @@ func NewMessage(r io.Reader) (*Message, error) {
 func readAddressListHeader(m *enmime.MIMEBody, key string) ([]*Address, error) {
 	list, err := m.AddressList(key)
 
-	if err == mail.ErrHeaderNotPresent {
-		return []*Address{}, nil
-	}
-
-	if err != nil {
+	if err != nil && err != mail.ErrHeaderNotPresent {
 		return nil, err
 	}
-	addrs := make([]*Address, len(list))
+	emails := make([]*Address, len(list))
 
 	for i, addr := range list {
-		addrs[i] = &Address{Name: addr.Name, Email: addr.Address}
+		emails[i] = &Address{Name: addr.Name, Email: addr.Address}
 	}
-	return addrs, nil
+	return emails, nil
 }
 
-func readDateHeader(h mail.Header) (time.Time, error) {
+func readDateHeader(h mail.Header) (*Time, error) {
 	date, err := h.Date()
 
 	if err == mail.ErrHeaderNotPresent {
-		return time.Now(), nil
+		return &Time{time.Now()}, nil
 	}
-	return date, err
+	return &Time{date}, err
 }

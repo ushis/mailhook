@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -16,6 +18,15 @@ func readTestMail(name string) (*Message, error) {
 	defer f.Close()
 
 	return NewMessage(f)
+}
+
+func readAttachment(name string) ([]byte, error) {
+	f, err := os.Open(filepath.Join("testdata", name))
+
+	if err != nil {
+		return nil, err
+	}
+	return ioutil.ReadAll(f)
 }
 
 func TestTextMail(t *testing.T) {
@@ -187,5 +198,45 @@ func TestAlternativeMail(t *testing.T) {
 
 	if msg.HTML != html {
 		t.Fatalf("unexpected html != \"%s\"", msg.HTML)
+	}
+}
+
+func TestAttachmentsMail(t *testing.T) {
+	msg, err := readTestMail("attachments.eml")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	text := `Hey Alice, thanks for your test mail!
+
+> Hey Bob,
+>
+> this is just a test...
+>
+> Cheers, Alice
+`
+
+	if msg.Text != text {
+		t.Fatalf("unexpected text: \"%s\"", msg.Text)
+	}
+
+	if len(msg.Attachments) != 4 {
+		t.Fatalf("4 != %d", len(msg.Attachments))
+	}
+
+	for _, a := range msg.Attachments {
+		if a.ContentType() != "application/octet-stream" {
+			t.Fatalf("unexpected content type: \"%s\"", a.ContentType())
+		}
+		body, err := readAttachment(a.FileName())
+
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if !bytes.Equal(body, a.Content()) {
+			t.Fatalf("unexpected body for %s", a.FileName())
+		}
 	}
 }

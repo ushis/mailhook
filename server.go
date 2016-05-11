@@ -3,7 +3,6 @@ package main
 import (
 	"bitbucket.org/chrj/smtpd"
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -44,12 +43,15 @@ func (s *Server) ServeSMTP(_ smtpd.Peer, env smtpd.Envelope) error {
 			return smtpd.Error{451, "internal server error"}
 		}
 		buf := bytes.NewBuffer(nil)
+		enc := NewMultipartEncoder(buf)
 
-		if err := json.NewEncoder(buf).Encode(NewPayload(env.Sender, addr, msg)); err != nil {
-			fmt.Println("could not json encode message:", err)
+		if err := enc.Encode("mail", NewMail(env.Sender, addr, msg)); err != nil {
+			fmt.Println("could not encode request body:", err)
 			return smtpd.Error{451, "internal server error"}
 		}
-		resp, err := http.Post(hook.Hook, "application/json", buf)
+		enc.Close()
+
+		resp, err := http.Post(hook.Hook, enc.FormDataContentType(), buf)
 
 		if err != nil {
 			fmt.Println("could not dispatch message:", err)
