@@ -136,16 +136,15 @@ func joinFields(a, b string) string {
 	return fmt.Sprintf("%s[%s]", a, b)
 }
 
-func parseTag(tag string) (name string, opts []string) {
-	opts = strings.Split(tag, ",")
+func parseTag(tag string) (string, []string) {
+	opts := strings.Split(tag, ",")
 
 	for i, opt := range opts {
 		opts[i] = strings.TrimSpace(opt)
 	}
 
-	if len(opts) > 0 {
-		name = opts[0]
-		opts = opts[1:]
+	if len(opts) == 0 {
+		return "", opts
 	}
-	return name, opts
+	return opts[0], opts[1:]
 }
