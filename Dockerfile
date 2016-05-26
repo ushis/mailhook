@@ -1,5 +1,9 @@
 FROM golang:onbuild
 
-EXPOSE 25
+RUN adduser --gecos GECOS --disabled-password --shell /bin/bash app
 
-CMD app -listen :25 -hook-file /etc/mailhook/hooks.yml
+USER app
+
+EXPOSE 1025
+
+CMD app -listen :1025 -hook-file /etc/mailhook/hooks.yml
