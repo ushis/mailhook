@@ -1,8 +1,6 @@
 FROM golang:onbuild
 
-RUN adduser --gecos GECOS --disabled-password --shell /bin/bash app
-
-USER app
+USER 1
 
 EXPOSE 1025
 
