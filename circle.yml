@@ -2,15 +2,24 @@
 machine:
   services:
     - docker
+  environment:
+    CC: musl-gcc
+    CXX: musl-gcc
+    GOOS: linux
+    GOARCH: amd64
+    CGO_ENABLED: 1
 
 dependencies:
   override:
-    - docker info
-    - docker build -t ushi/mailhook .
+    - sudo apt-get update
+    - sudo apt-get install -y bzr musl-tools
+    - go get -v -d -t ./...
 
 test:
   override:
-    - docker run ushi/mailhook go test -v -race -cover ./...
+    - go test -v -race -cover ./...
+    - go build -v -a .
+    - docker build -t ushi/mailhook .
 
 deployment:
   hub:
