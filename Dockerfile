@@ -1,5 +1,7 @@
 FROM alpine
 
+RUN apk update && apk add ca-certificates
+
 COPY mailhook /usr/local/bin/mailhook
 
 USER 1
