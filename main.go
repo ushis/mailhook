@@ -33,6 +33,12 @@ func main() {
 		fmt.Println("could not read hook file:", err)
 		os.Exit(1)
 	}
+	hostname, err := os.Hostname()
+
+	if err != nil {
+		fmt.Println("could not get hostname:", err)
+		os.Exit(1)
+	}
 	l, err := net.Listen(netOfAddr(listenAddr), listenAddr)
 
 	if err != nil {
@@ -41,7 +47,11 @@ func main() {
 	}
 	defer l.Close()
 
-	NewServer(&smtpd.Server{}, hooks).Serve(l)
+	smtp := &smtpd.Server{
+		Hostname:       hostname,
+		WelcomeMessage: fmt.Sprintf("%s ESMTP mailhook", hostname),
+	}
+	NewServer(smtp, hooks).Serve(l)
 }
 
 func readHookFile(path string) (Hooks, error) {
