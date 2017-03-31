@@ -1,6 +1,6 @@
-FROM alpine
+FROM alpine:3.5
 
-RUN apk update && apk add ca-certificates
+RUN apk add --no-cache ca-certificates
 
 COPY mailhook /usr/local/bin/mailhook
 

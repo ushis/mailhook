@@ -1,0 +1,49 @@
+---
+sudo: false
+
+language: go
+
+addons:
+  apt:
+    packages:
+      musl-tools
+
+go:
+  - 1.8
+
+env:
+  - CC=musl-gcc CXX=musl-gcc GOOS=linux GOARCH=amd64 CGO_ENABLED=1
+
+services:
+  - docker
+
+install:
+  - go get -v -d -t ./...
+
+script:
+  - go vet *.go
+  - go test -v -cover ./...
+  - go build -v -a .
+  - docker build -t mailhook .
+
+before_deploy:
+  - if test -n "${TRAVIS_TAG}"; then
+      docker tag mailhook "ushi/mailhook:${TRAVIS_TAG}";
+    else
+      docker tag mailhook "ushi/mailhook:latest";
+    fi
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: docker push "ushi/mailhook:${TRAVIS_TAG}"
+    on:
+      tags: true
+
+  - provider: script
+    skip_cleanup: true
+    script: docker push "ushi/mailhook:latest"
+    on:
+      branch: master

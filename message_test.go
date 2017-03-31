@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 )
@@ -131,13 +132,23 @@ func TestHTMLMail(t *testing.T) {
 
 	text := `Hey Alice, thanks for your test mail!
 
-Hey Bob,
+>
+>
+>
+> Hey Bob,
+>
+>
+>
+> this is just a test...
+>
+>
+>
+> Cheers, Alice
+>
+>`
 
-this is just a test...
-
-Cheers, Alice`
-
-	if msg.Text != text {
+	// remove trailing spaces before compare
+	if strings.Replace(msg.Text, " \n", "\n", -1) != text {
 		t.Fatalf("unexpected text: \"%s\"", msg.Text)
 	}
 
