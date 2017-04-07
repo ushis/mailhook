@@ -1,0 +1,4 @@
+---
+- hook: 'http://b.net/'
+  emails:
+    - '@b.net'

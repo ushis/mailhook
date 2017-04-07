@@ -8,8 +8,12 @@ Micro service receiving emails and posting them to web hooks.
 ## Usage
 
 ```
-mailhook -hook-file hooks.yml -listen :25
+mailhook -hook-dir /etc/mailhook/hooks -listen :25
 ```
+
+### Hook Directory
+
+A hook directory contains a number of hook files with ```.yml``` extension.
 
 ### Hook File
 
