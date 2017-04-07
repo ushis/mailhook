@@ -1,0 +1,9 @@
+---
+- hook: 'http://a.com/a'
+  emails:
+    - 'a@a.com'
+
+- hook: 'http://a.com/b'
+  emails:
+    - 'b@a.com'
+    - 'c@a.com'

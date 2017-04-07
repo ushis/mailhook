@@ -4,30 +4,28 @@ import (
 	"bitbucket.org/chrj/smtpd"
 	"flag"
 	"fmt"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
 	"net"
 	"os"
 )
 
 var (
 	listenAddr string
-	hookFile   string
+	hookDir    string
 )
 
 func init() {
 	flag.StringVar(&listenAddr, "listen", ":25", "address to listen to")
-	flag.StringVar(&hookFile, "hook-file", "", "path to the hook file")
+	flag.StringVar(&hookDir, "hook-dir", "", "path to look for hook files")
 }
 
 func main() {
 	flag.Parse()
 
-	if len(hookFile) == 0 {
-		fmt.Println("a hook file (-hook-file) is required")
+	if len(hookDir) == 0 {
+		fmt.Println("a hook directory (-hook-dir) is required")
 		os.Exit(1)
 	}
-	hooks, err := readHookFile(hookFile)
+	hooks, err := NewHookDir(hookDir).Hooks()
 
 	if err != nil {
 		fmt.Println("could not read hook file:", err)
@@ -52,27 +50,6 @@ func main() {
 		WelcomeMessage: fmt.Sprintf("%s ESMTP mailhook", hostname),
 	}
 	NewServer(smtp, hooks).Serve(l)
-}
-
-func readHookFile(path string) (Hooks, error) {
-	f, err := os.Open(path)
-
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	buf, err := ioutil.ReadAll(f)
-
-	if err != nil {
-		return nil, err
-	}
-	hooks := Hooks{}
-
-	if err := yaml.Unmarshal(buf, &hooks); err != nil {
-		return nil, err
-	}
-	return hooks, nil
 }
 
 func netOfAddr(addr string) string {
