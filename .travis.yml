@@ -9,7 +9,7 @@ addons:
       musl-tools
 
 go:
-  - 1.8
+  - 1.9
 
 env:
   - CC=musl-gcc CXX=musl-gcc GOOS=linux GOARCH=amd64 CGO_ENABLED=1
