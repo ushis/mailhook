@@ -1,49 +1,26 @@
----
 sudo: false
 
 language: go
 
-addons:
-  apt:
-    packages:
-      musl-tools
-
 go:
-  - 1.9
+  - '1.10.x'
 
 env:
-  - CC=musl-gcc CXX=musl-gcc GOOS=linux GOARCH=amd64 CGO_ENABLED=1
-
-services:
-  - docker
+  - GOOS=linux GOARCH=amd64
 
 install:
   - go get -v -d -t ./...
 
 script:
   - go vet *.go
-  - go test -v -cover ./...
+  - go test -v -cover -race ./...
   - go build -v -a .
-  - docker build -t mailhook .
-
-before_deploy:
-  - if test -n "${TRAVIS_TAG}"; then
-      docker tag mailhook "ushi/mailhook:${TRAVIS_TAG}";
-    else
-      docker tag mailhook "ushi/mailhook:latest";
-    fi
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-
 
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: docker push "ushi/mailhook:${TRAVIS_TAG}"
-    on:
-      tags: true
-
-  - provider: script
-    skip_cleanup: true
-    script: docker push "ushi/mailhook:latest"
-    on:
-      branch: master
+  provider: releases
+  api_key:
+    secure: nCYiaeW5tPlBZ0ZtGBCuyGMHHQT5zo9oxYqO9NRoXk4fUf5oMYRc7BstLi0nuTQ3t1uG+bucK9IXEUxpCLWl7aiF/GN/diAc6ndBvUpyNUMprWwkEBGYV+aEUV1cY5pMW5dMTg337diA4EMGXktiC0t1xTg5g1kCPlUdRvCtA5Xq16EH3aNYofjcm98qacCzmS8nAjps9gpEzRgIqOQ3mNqD+/yZnUxX4qFO+mBG5pybdLlqCkJTKXDdD+lKCs0OJ9F4rV8x9jat+191/5Jl1+fQEUBbBi+YMZYtA2MudcUVZ/7GVNthCssVwH5o20CuGatvbEkKebIeTXpB3MNd2tit/pAVi+7bR95H0QohwH8OQatKPuXCL248tVHhK3ur92RkUxrUh9iBpcL4c8gTV9suvtFXiyOIDiNw7QnE7WQ5IhexUBJyJyPrWw1GWpDP/VGfk7t6ExOR8lYaKzFwE6DPPIdXtzyKdNFaoms2JrwfaTcOUnAxHr1CVcQewfurAbE6/Um+LTnzKrJYVyqcfTw8QrCmabdDrYl3H/qvofVDsrTCaCwl1VnYfkjPrAz3j02BdI99bDdnWWN/MEnFU/aOutpUe1iRF2hJ0xeO0UGfbtjpgPeHE1MALpKoAsk8FMxDeutVhDQNQ6Pur7ooak7AIi/zXKRJNnDwJ984FPw=
+  file: mailhook
+  on:
+    repo: ushis/mailhook
+    tags: true
