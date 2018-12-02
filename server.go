@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bitbucket.org/chrj/smtpd"
+	"github.com/chrj/smtpd"
 	"bytes"
 	"fmt"
 	"net/http"

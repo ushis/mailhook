@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bitbucket.org/chrj/smtpd"
+	"github.com/chrj/smtpd"
 	"flag"
 	"fmt"
 	"net"
