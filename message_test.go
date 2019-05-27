@@ -237,17 +237,17 @@ func TestAttachmentsMail(t *testing.T) {
 	}
 
 	for _, a := range msg.Attachments {
-		if a.ContentType() != "application/octet-stream" {
-			t.Fatalf("unexpected content type: \"%s\"", a.ContentType())
+		if a.ContentType != "application/octet-stream" {
+			t.Fatalf("unexpected content type: \"%s\"", a.ContentType)
 		}
-		body, err := readAttachment(a.FileName())
+		body, err := readAttachment(a.FileName)
 
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		if !bytes.Equal(body, a.Content()) {
-			t.Fatalf("unexpected body for %s", a.FileName())
+		if !bytes.Equal(body, a.Content) {
+			t.Fatalf("unexpected body for %s", a.FileName)
 		}
 	}
 }

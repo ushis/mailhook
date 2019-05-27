@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/jhillyerd/go.enmime"
+	"github.com/jhillyerd/enmime"
 )
 
 type Attachment struct {
-	enmime.MIMEPart
+	*enmime.Part
 }
 
 func (a *Attachment) MarshalMultipart() (string, []byte) {
-	return a.FileName(), a.Content()
+	return a.FileName, a.Content
 }

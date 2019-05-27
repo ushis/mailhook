@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/chrj/smtpd"
 	"bytes"
 	"fmt"
+	"github.com/chrj/smtpd"
 	"net/http"
 )
 
