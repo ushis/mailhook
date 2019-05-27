@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/jhillyerd/go.enmime"
+	"github.com/jhillyerd/enmime"
 	"io"
 	"net/mail"
 	"strings"
@@ -30,59 +30,54 @@ type Address struct {
 }
 
 func NewMessage(r io.Reader) (*Message, error) {
-	msg, err := mail.ReadMessage(r)
-
-	if err != nil {
-		return nil, err
-	}
-	b, err := enmime.ParseMIMEBody(msg)
+	env, err := enmime.ReadEnvelope(r)
 
 	if err != nil {
 		return nil, err
 	}
 
-	m := &Message{
-		Subject:     b.GetHeader("Subject"),
-		MessageID:   b.GetHeader("Message-ID"),
-		InReplyTo:   b.GetHeader("In-Reply-To"),
-		References:  strings.Fields(b.GetHeader("References")),
-		Text:        b.Text,
-		HTML:        b.HTML,
-		Attachments: make([]*Attachment, len(b.Attachments)),
+	msg := &Message{
+		Subject:     env.GetHeader("Subject"),
+		MessageID:   env.GetHeader("Message-ID"),
+		InReplyTo:   env.GetHeader("In-Reply-To"),
+		References:  strings.Fields(env.GetHeader("References")),
+		Text:        env.Text,
+		HTML:        env.HTML,
+		Attachments: make([]*Attachment, len(env.Attachments)),
 	}
 
-	for i, attachment := range b.Attachments {
-		m.Attachments[i] = &Attachment{attachment}
+	for i, attachment := range env.Attachments {
+		msg.Attachments[i] = &Attachment{attachment}
 	}
 
-	if m.From, err = readAddressListHeader(b, "From"); err != nil {
+	if msg.From, err = readAddressListHeader(env, "From"); err != nil {
 		return nil, err
 	}
 
-	if m.To, err = readAddressListHeader(b, "To"); err != nil {
+	if msg.To, err = readAddressListHeader(env, "To"); err != nil {
 		return nil, err
 	}
 
-	if m.Cc, err = readAddressListHeader(b, "Cc"); err != nil {
+	if msg.Cc, err = readAddressListHeader(env, "Cc"); err != nil {
 		return nil, err
 	}
 
-	if m.Bcc, err = readAddressListHeader(b, "Bcc"); err != nil {
+	if msg.Bcc, err = readAddressListHeader(env, "Bcc"); err != nil {
 		return nil, err
 	}
 
-	if m.ReplyTo, err = readAddressListHeader(b, "Reply-To"); err != nil {
+	if msg.ReplyTo, err = readAddressListHeader(env, "Reply-To"); err != nil {
 		return nil, err
 	}
 
-	if m.Date, err = readDateHeader(msg.Header); err != nil {
+	if msg.Date, err = readDateHeader(env); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return msg, nil
 }
 
-func readAddressListHeader(m *enmime.MIMEBody, key string) ([]*Address, error) {
-	list, err := m.AddressList(key)
+func readAddressListHeader(env *enmime.Envelope, key string) ([]*Address, error) {
+	list, err := env.AddressList(key)
 
 	if err != nil && err != mail.ErrHeaderNotPresent {
 		return nil, err
@@ -95,11 +90,13 @@ func readAddressListHeader(m *enmime.MIMEBody, key string) ([]*Address, error) {
 	return emails, nil
 }
 
-func readDateHeader(h mail.Header) (*Time, error) {
-	date, err := h.Date()
+func readDateHeader(env *enmime.Envelope) (*Time, error) {
+	hdr := env.GetHeader("Date")
 
-	if err == mail.ErrHeaderNotPresent {
+	if hdr == "" {
 		return &Time{time.Now()}, nil
 	}
+	date, err := mail.ParseDate(hdr)
+
 	return &Time{date}, err
 }

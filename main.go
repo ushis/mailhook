@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/chrj/smtpd"
 	"flag"
 	"fmt"
+	"github.com/chrj/smtpd"
 	"net"
 	"os"
 )
