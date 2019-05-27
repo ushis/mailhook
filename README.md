@@ -2,9 +2,14 @@
 
 [![Build Status](https://travis-ci.org/ushis/mailhook.svg?branch=master)](https://travis-ci.org/ushis/mailhook)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ushis/mailhook)](https://goreportcard.com/report/github.com/ushis/mailhook)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ushi/mailhook.svg)](https://hub.docker.com/r/ushi/mailhook/)
 
 Micro service receiving emails and posting them to web hooks.
+
+## Install
+
+Download the binary from the
+[Releases Page](https://github.com/ushis/mailhook/releases)
+or build from source.
 
 ## Usage
 
