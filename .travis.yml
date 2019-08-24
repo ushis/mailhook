@@ -6,10 +6,13 @@ go:
   - '1.12.x'
 
 env:
-  - GOOS=linux GOARCH=amd64
+  global:
+    - GOOS=linux
+    - GOARCH=amd64
+    - GO111MODULE=on
 
 install:
-  - go get -v -d -t ./...
+  - go get -v -d ./...
 
 script:
   - go vet *.go
