@@ -11,19 +11,17 @@ env:
     - GOARCH=amd64
     - GO111MODULE=on
 
-before_install:
-  - npm install -g snyk
-
 install:
+  - yarn install
   - go get -v -d ./...
 
 script:
   - go vet *.go
   - go test -v -cover -race ./...
   - go build -v -a .
-  - snyk auth "${SNYK_API_TOKEN}"
-  - snyk test
-  - if test -n "${TRAVIS_TAG}"; then snyk monitor; fi
+  - yarn run snyk auth "${SNYK_API_TOKEN}"
+  - yarn run snyk test --file=go.mod
+  - if test -n "${TRAVIS_TAG}"; then yarn run snyk monitor; fi
 
 deploy:
   provider: releases
