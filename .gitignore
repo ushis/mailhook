@@ -4,3 +4,6 @@
 
 # Binary
 /mailhook
+
+# Dependencies
+/node_modules

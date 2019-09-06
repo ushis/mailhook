@@ -25,3 +25,10 @@ jobs:
           go get -v -d ./...
           go test -v -cover -race ./...
           go build -v -a .
+      - name: snyk test
+        env:
+          SNYK_API_TOKEN: ${{ secrets.SNYK_API_TOKEN }}
+        run: |
+          yarn install
+          yarn run snyk auth "${SNYK_API_TOKEN}"
+          yarn run snyk test --file=go.mod
