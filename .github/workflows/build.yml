@@ -1,0 +1,27 @@
+---
+name: build
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+      - name: setup go
+        uses: actions/setup-go@v1.0.2
+        with:
+          go-version: '1.12.9'
+      - name: go vet/get/test/build
+        env:
+          GOOS: linux
+          GOARCH: amd64
+          GO111MODULE: on
+        run: |
+          go vet *.go
+          go get -v -d ./...
+          go test -v -cover -race ./...
+          go build -v -a .
