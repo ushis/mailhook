@@ -14,16 +14,15 @@ jobs:
       - name: setup go
         uses: actions/setup-go@v1.0.2
         with:
-          go-version: '1.12.9'
+          go-version: '1.13'
       - name: go vet/get/test/build
         env:
           GOOS: linux
           GOARCH: amd64
-          GO111MODULE: on
         run: |
           go vet *.go
-          go get -v -d ./...
-          go test -v -cover -race ./...
+          go get -v -d .
+          go test -v -cover -race .
           go build -v -a .
       - name: snyk test
         env:

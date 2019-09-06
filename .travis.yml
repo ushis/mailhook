@@ -3,21 +3,20 @@ sudo: false
 language: go
 
 go:
-  - '1.12.x'
+  - '1.13.x'
 
 env:
   global:
     - GOOS=linux
     - GOARCH=amd64
-    - GO111MODULE=on
 
 install:
   - yarn install
-  - go get -v -d ./...
+  - go get -v -d .
 
 script:
   - go vet *.go
-  - go test -v -cover -race ./...
+  - go test -v -cover -race .
   - go build -v -a .
   - yarn run snyk auth "${SNYK_API_TOKEN}"
   - yarn run snyk test --file=go.mod
