@@ -3,27 +3,24 @@ sudo: false
 language: go
 
 go:
-  - '1.12.x'
+  - '1.13.x'
 
 env:
   global:
     - GOOS=linux
     - GOARCH=amd64
-    - GO111MODULE=on
-
-before_install:
-  - npm install -g snyk
 
 install:
-  - go get -v -d ./...
+  #- yarn install
+  - go get -v -d .
 
 script:
   - go vet *.go
-  - go test -v -cover -race ./...
+  - go test -v -cover -race .
   - go build -v -a .
-  - snyk auth "${SNYK_API_TOKEN}"
-  - snyk test
-  - if test -n "${TRAVIS_TAG}"; then snyk monitor; fi
+  #- yarn snyk auth "${SNYK_API_TOKEN}"
+  #- yarn snyk test --file=go.mod
+  #- if test -n "${TRAVIS_TAG}"; then yarn snyk monitor; fi
 
 deploy:
   provider: releases
