@@ -11,16 +11,16 @@ env:
     - GOARCH=amd64
 
 install:
-  #- yarn install
   - go get -v -d .
 
 script:
   - go vet *.go
   - go test -v -cover -race .
   - go build -v -a .
-  #- yarn snyk auth "${SNYK_API_TOKEN}"
-  #- yarn snyk test --file=go.mod
-  #- if test -n "${TRAVIS_TAG}"; then yarn snyk monitor; fi
+  - npm install -g snyk
+  - snyk auth "${SNYK_API_TOKEN}"
+  - snyk test --file=go.mod
+  - if test -n "${TRAVIS_TAG}"; then snyk monitor; fi
 
 deploy:
   provider: releases
