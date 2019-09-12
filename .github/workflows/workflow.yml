@@ -1,10 +1,12 @@
 ---
+name: workflow
+
 on:
   - push
   - pull_request
 
 jobs:
-  build:
+  go:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
