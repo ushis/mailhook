@@ -20,7 +20,7 @@ script:
   - npm install -g snyk
   - snyk auth "${SNYK_API_TOKEN}"
   - snyk test --file=go.mod
-  - if test -n "${TRAVIS_TAG}"; then snyk monitor; fi
+  - test -z "${TRAVIS_TAG}" || snyk monitor --file=go.mod
 
 deploy:
   provider: releases
