@@ -6,7 +6,7 @@ require (
 	github.com/chrj/smtpd v0.1.2
 	github.com/go-test/deep v1.0.3 // indirect
 	github.com/jaytaylor/html2text v0.0.0-20190408195923-01ec452cbe43 // indirect
-	github.com/jhillyerd/enmime v0.6.0
+	github.com/jhillyerd/enmime v0.7.0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-runewidth v0.0.4 // indirect
 	github.com/olekukonko/tablewriter v0.0.1 // indirect
