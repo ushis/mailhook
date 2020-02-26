@@ -1,3 +1,5 @@
+github.com/cention-sany/utf7 v0.0.0-20170124080048-26cad61bd60a h1:MISbI8sU/PSK/ztvmWKFcI7UGb5/HQT7B+i3a2myKgI=
+github.com/cention-sany/utf7 v0.0.0-20170124080048-26cad61bd60a/go.mod h1:2GxOXOlEPAMFPfp014mK1SWq8G8BN8o7/dfYqJrVGn8=
 github.com/chrj/smtpd v0.1.2 h1:yWaMOCmnPlcNgJzkak1TBhhkObAfomd+NmZG5epdO88=
 github.com/chrj/smtpd v0.1.2/go.mod h1:jt4ydELuZmqhn9hn3YpEPV1dY00aOB+Q1nWXnBDFKeY=
 github.com/eaigner/dkim v0.0.0-20150301120808-6fe4a7ee9cfb/go.mod h1:FSCIHbrqk7D01Mj8y/jW+NS1uoCerr+ad+IckTHTFf4=
@@ -15,6 +17,8 @@ github.com/jhillyerd/enmime v0.6.0 h1:FeypffI/uD1xt+Csd7gfD7mYx1h+qjgGlcI/ko5+Ls
 github.com/jhillyerd/enmime v0.6.0/go.mod h1:lwWyVhHVBdmzXx3wtRTmpIdNEJyZ85LJuVqZHVK/Rlo=
 github.com/jhillyerd/enmime v0.7.0 h1:sgpGoXHlL1ub4v0HrkuBg7dQrkudH587L1XfTEdz4LI=
 github.com/jhillyerd/enmime v0.7.0/go.mod h1:dZ1kV5FKocmYPe329xhaVv0IKlDTERAj7Oia9zi1zE8=
+github.com/jhillyerd/enmime v0.8.0 h1:PHc/2LXtnDmCDm0V4+5NlBx+MoubmufhuNXwpKSV2o8=
+github.com/jhillyerd/enmime v0.8.0/go.mod h1:MBHs3ugk03NGjMM6PuRynlKf+HA5eSillZ+TRCm73AE=
 github.com/kr/pretty v0.1.0 h1:L/CwN0zerZDmRFUapSPitk6f+Q3+0za1rQkzVuMiMFI=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
