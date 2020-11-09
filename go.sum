@@ -16,6 +16,8 @@ github.com/jhillyerd/enmime v0.8.0 h1:PHc/2LXtnDmCDm0V4+5NlBx+MoubmufhuNXwpKSV2o
 github.com/jhillyerd/enmime v0.8.0/go.mod h1:MBHs3ugk03NGjMM6PuRynlKf+HA5eSillZ+TRCm73AE=
 github.com/jhillyerd/enmime v0.8.1 h1:Kz4xj3sJJ4Ju8e+w/7v9H4Matv5ijPgv7UkhPf+C15I=
 github.com/jhillyerd/enmime v0.8.1/go.mod h1:MBHs3ugk03NGjMM6PuRynlKf+HA5eSillZ+TRCm73AE=
+github.com/jhillyerd/enmime v0.8.3 h1:aZGfnnvl4m4FJhvoCrCeAwJWEb3GNm+WhaQ9Nr0Oec8=
+github.com/jhillyerd/enmime v0.8.3/go.mod h1:SWWlqKsXJMl00Nnuh04RSu6XoEo83B/VaujD/xzoBP0=
 github.com/kr/pretty v0.1.0 h1:L/CwN0zerZDmRFUapSPitk6f+Q3+0za1rQkzVuMiMFI=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
@@ -27,6 +29,8 @@ github.com/olekukonko/tablewriter v0.0.1 h1:b3iUnf1v+ppJiOfNX4yxxqfWKMQPZR5yoh8u
 github.com/olekukonko/tablewriter v0.0.1/go.mod h1:vsDQFd/mU46D+Z4whnwzcISnGGzXWMclvtLoiIKAKIo=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca h1:NugYot0LIVPxTvN8n+Kvkn6TrbMyxQiuvKdEwFdR9vI=
 github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca/go.mod h1:uugorj2VCxiV1x+LzaIdVa9b4S4qGAcH6cbhh4qVxOU=
 github.com/ssor/bom v0.0.0-20170718123548-6386211fdfcf h1:pvbZ0lM0XWPBqUKqFU8cmavspvIl9nulOYwdy6IFRRo=
