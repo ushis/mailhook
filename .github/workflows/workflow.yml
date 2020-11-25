@@ -6,15 +6,15 @@ on:
   - pull_request
 
 jobs:
-  go:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@master
       - name: setup go
-        uses: actions/setup-go@v1.0.2
+        uses: actions/setup-go@v2
         with:
-          go-version: '1.14'
+          go-version: '1.15'
       - name: go
         env:
           GOOS: linux
@@ -24,6 +24,12 @@ jobs:
           go get -v -d .
           go test -v -cover -race .
           go build -v -a .
+      - name: upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: mailhook
+          path: mailhook
+
   snyk:
     runs-on: ubuntu-latest
     steps:
@@ -40,3 +46,42 @@ jobs:
           npm install --prefix="${HOME}" -g snyk
           "${HOME}/bin/snyk" auth "${SNYK_API_TOKEN}"
           "${HOME}/bin/snyk" test --file=go.mod
+
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [build, snyk]
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+      - name: download build
+        uses: actions/download-artifact@v2
+        with:
+          name: mailhook
+      - name: generate checksums
+        id: checksums
+        run: echo "::set-output name=sha256sums::$(sha256sum mailhook)"
+      - name: create release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            sha256 checksums
+            ```
+            ${{ steps.checksums.outputs.sha256sums }}
+            ```
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: upload release build
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./mailhook
+          asset_name: mailhook
+          asset_content_type: application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
