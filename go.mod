@@ -7,7 +7,7 @@ require (
 	github.com/go-test/deep v1.0.3 // indirect
 	github.com/gogs/chardet v0.0.0-20191104214054-4b6791f73a28 // indirect
 	github.com/jaytaylor/html2text v0.0.0-20200412013138-3577fbdbcff7 // indirect
-	github.com/jhillyerd/enmime v0.8.3
+	github.com/jhillyerd/enmime v0.8.4
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/olekukonko/tablewriter v0.0.4 // indirect

@@ -22,6 +22,8 @@ github.com/jhillyerd/enmime v0.8.1 h1:Kz4xj3sJJ4Ju8e+w/7v9H4Matv5ijPgv7UkhPf+C15
 github.com/jhillyerd/enmime v0.8.1/go.mod h1:MBHs3ugk03NGjMM6PuRynlKf+HA5eSillZ+TRCm73AE=
 github.com/jhillyerd/enmime v0.8.3 h1:aZGfnnvl4m4FJhvoCrCeAwJWEb3GNm+WhaQ9Nr0Oec8=
 github.com/jhillyerd/enmime v0.8.3/go.mod h1:SWWlqKsXJMl00Nnuh04RSu6XoEo83B/VaujD/xzoBP0=
+github.com/jhillyerd/enmime v0.8.4 h1:y4fFRV5Rf60G5mNUzyzcXIpsA9Ju7+lFx1MBBhO3or0=
+github.com/jhillyerd/enmime v0.8.4/go.mod h1:SWWlqKsXJMl00Nnuh04RSu6XoEo83B/VaujD/xzoBP0=
 github.com/kr/pretty v0.1.0 h1:L/CwN0zerZDmRFUapSPitk6f+Q3+0za1rQkzVuMiMFI=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
