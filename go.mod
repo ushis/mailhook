@@ -3,7 +3,7 @@ module github.com/ushis/mailhook
 go 1.14
 
 require (
-	github.com/chrj/smtpd v0.2.0
+	github.com/chrj/smtpd v0.3.0
 	github.com/go-test/deep v1.0.3 // indirect
 	github.com/gogs/chardet v0.0.0-20191104214054-4b6791f73a28 // indirect
 	github.com/jaytaylor/html2text v0.0.0-20200412013138-3577fbdbcff7 // indirect
